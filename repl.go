@@ -64,6 +64,11 @@ func getCommands() map[string]cliCommand {
 			description: "Prints the help menu",
 			callback:    callbackHelp,
 		},
+		"inspect": {
+			name:        "inspect",
+			description: "View information about a pokemon",
+			callback:    callbackInspect,
+		},
 		"map": {
 			name:        "map",
 			description: "Lists next page location areas",
