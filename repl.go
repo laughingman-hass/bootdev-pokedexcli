@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strings"
 )
@@ -30,7 +31,10 @@ func startRepl() {
 			continue
 		}
 
-		command.callback()
+		err := command.callback()
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 }
 
@@ -46,6 +50,11 @@ func getCommands() map[string]cliCommand {
 			name:        "help",
 			description: "Prints the help menu",
 			callback:    callbackHelp,
+		},
+		"map": {
+			name:        "map",
+			description: "Lists some location areas",
+			callback:    callbackMap,
 		},
 		"exit": {
 			name:        "exit",
