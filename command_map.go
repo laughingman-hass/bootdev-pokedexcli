@@ -6,18 +6,18 @@ import (
 )
 
 func callbackMap(cfg *config, _ ...string) error {
-	resp, err := cfg.pokeapiClient.ListLocationAreas(cfg.nextLocationAreaURL)
+	locationAreas, err := cfg.pokeapiClient.ListLocationAreas(cfg.nextLocationAreaURL)
 	if err != nil {
 		return err
 	}
 
 	fmt.Println("Location areas:")
-	for _, area := range resp.Results {
+	for _, area := range locationAreas.Results {
 		fmt.Printf("- %s\n", area.Name)
 	}
 
-	cfg.nextLocationAreaURL = resp.Next
-	cfg.prevLocationAreaURL = resp.Previous
+	cfg.nextLocationAreaURL = locationAreas.Next
+	cfg.prevLocationAreaURL = locationAreas.Previous
 
 	return nil
 }
@@ -27,18 +27,18 @@ func callbackMapb(cfg *config, _ ...string) error {
 		return errors.New("previous URL not set")
 	}
 
-	resp, err := cfg.pokeapiClient.ListLocationAreas(cfg.prevLocationAreaURL)
+	locationAreas, err := cfg.pokeapiClient.ListLocationAreas(cfg.prevLocationAreaURL)
 	if err != nil {
 		return err
 	}
 
 	fmt.Println("Location areas:")
-	for _, area := range resp.Results {
+	for _, area := range locationAreas.Results {
 		fmt.Printf("- %s\n", area.Name)
 	}
 
-	cfg.nextLocationAreaURL = resp.Next
-	cfg.prevLocationAreaURL = resp.Previous
+	cfg.nextLocationAreaURL = locationAreas.Next
+	cfg.prevLocationAreaURL = locationAreas.Previous
 
 	return nil
 }
